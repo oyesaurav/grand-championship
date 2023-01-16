@@ -1,10 +1,11 @@
 import "@/styles/globals.css"
+import Link from 'next/link'
 import Head from "next/head"
 import React, { useEffect, useState, Fragment } from "react"
 import { MantineProvider, ColorSchemeProvider, Flex, AppShell, Header, Footer } from "@mantine/core"
 import { Navbar, Center, Tooltip, UnstyledButton, createStyles, Stack, useMantineColorScheme, ActionIcon, Group } from "@mantine/core"
 import {
-  IconSun, IconMoonStars,
+  IconSun, IconMoonStars, IconCricket,
   TablerIcon,
   IconHome2,
   IconGauge,
@@ -55,21 +56,21 @@ function NavbarLink({ icon: Icon, label, active, onClick }) {
 }
 
 const mockdata = [
-  { icon: IconHome2, label: "Home" },
-  { icon: IconGauge, label: "Dashboard" },
-  { icon: IconDeviceDesktopAnalytics, label: "Analytics" },
-  { icon: IconCalendarStats, label: "Releases" },
-  { icon: IconUser, label: "Account" },
-  { icon: IconFingerprint, label: "Security" },
-  { icon: IconSettings, label: "Settings" },
+  { icon: IconHome2, label: "Home", route: "/"},
+  { icon: IconCricket, label: "Cricket", route: "/cricket"},
+  { icon: IconDeviceDesktopAnalytics, label: "Analytics", route: "/cricket" },
+  { icon: IconCalendarStats, label: "Releases", route: "/cricket" },
+  { icon: IconUser, label: "Account", route: "/cricket" },
+  { icon: IconFingerprint, label: "Security", route: "/cricket" },
+  { icon: IconSettings, label: "Settings", route: "/cricket" },
 ]
 
 export default function App({ Component, pageProps }) {
-  const [active, setActive] = useState(2)
+  const [active, setActive] = useState(0)
   const [color, setColor] = useState("dark")
 
   const links = mockdata.map((link, index) => (
-    <NavbarLink {...link} key={link.label} active={index === active} onClick={() => setActive(index)} />
+    <Link href={link.route} ><NavbarLink {...link} key={link.label} active={index === active} onClick={() => setActive(index)} /></Link> 
   ))
 
   function changeColor() {

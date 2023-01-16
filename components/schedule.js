@@ -3,6 +3,55 @@ import dayjs from 'dayjs';
 import { createStyles, UnstyledButton, Text, Paper, Group } from '@mantine/core';
 import { IconSwimming, IconBike, IconRun, IconChevronDown, IconChevronUp } from '@tabler/icons';
 
+const data = [
+  { icon: IconRun, label: 'Running' },
+  { icon: IconSwimming, label: 'Swimming' },
+  { icon: IconBike, label: 'Bike' },
+];
+
+export function Schedule() {
+  const { classes } = useStyles();
+  const [date, setDate] = useState(new Date());
+
+  const stats = data.map((stat) => (
+    <Paper className={classes.stat} radius="md" shadow="md" p="xs" key={stat.label}>
+      <stat.icon size={32} className={classes.icon} stroke={1.5} />
+      <div>
+        <Text className={classes.label}>{stat.label}</Text>
+        <Text size="xs" className={classes.count}>
+          <span className={classes.value}>Details</span> / 10km
+        </Text>
+      </div>
+    </Paper>
+  ));
+
+  return (
+    <div className={classes.root}>
+      <div className={classes.controls}>
+        <UnstyledButton
+          className={classes.control}
+          onClick={() => setDate( (current) => dayjs(current).add(1, 'day').toDate())}
+        >
+          <IconChevronUp className={classes.controlIcon} stroke={1.5} />
+        </UnstyledButton>
+
+        <div className={classes.date}>
+          <Text className={classes.day}>{dayjs(date).format('DD')}</Text>
+          <Text className={classes.month}>{dayjs(date).format('MMMM')}</Text>
+        </div>
+
+        <UnstyledButton
+          className={classes.control}
+          onClick={() => setDate((current) => dayjs(current).subtract(1, 'day').toDate())}
+        >
+          <IconChevronDown className={classes.controlIcon} stroke={1.5} />
+        </UnstyledButton>
+      </div>
+      <Group sx={{ flex: 1 }}>{stats}</Group>
+    </div>
+  );
+}
+
 const useStyles = createStyles((theme) => ({
   root: {
     backgroundImage: `linear-gradient(-60deg, ${theme.colors[theme.primaryColor][4]} 0%, ${
@@ -118,52 +167,3 @@ const useStyles = createStyles((theme) => ({
     },
   },
 }));
-
-const data = [
-  { icon: IconRun, label: 'Running' },
-  { icon: IconSwimming, label: 'Swimming' },
-  { icon: IconBike, label: 'Bike' },
-];
-
-export function Schedule() {
-  const { classes } = useStyles();
-  const [date, setDate] = useState(new Date(2021, 9, 24));
-
-  const stats = data.map((stat) => (
-    <Paper className={classes.stat} radius="md" shadow="md" p="xs" key={stat.label}>
-      <stat.icon size={32} className={classes.icon} stroke={1.5} />
-      <div>
-        <Text className={classes.label}>{stat.label}</Text>
-        <Text size="xs" className={classes.count}>
-          <span className={classes.value}>{Math.floor(Math.random() * 6 + 4)}km</span> / 10km
-        </Text>
-      </div>
-    </Paper>
-  ));
-
-  return (
-    <div className={classes.root}>
-      <div className={classes.controls}>
-        <UnstyledButton
-          className={classes.control}
-          onClick={() => setDate((current) => dayjs(current).add(1, 'day').toDate())}
-        >
-          <IconChevronUp className={classes.controlIcon} stroke={1.5} />
-        </UnstyledButton>
-
-        <div className={classes.date}>
-          <Text className={classes.day}>{dayjs(date).format('DD')}</Text>
-          <Text className={classes.month}>{dayjs(date).format('MMMM')}</Text>
-        </div>
-
-        <UnstyledButton
-          className={classes.control}
-          onClick={() => setDate((current) => dayjs(current).subtract(1, 'day').toDate())}
-        >
-          <IconChevronDown className={classes.controlIcon} stroke={1.5} />
-        </UnstyledButton>
-      </div>
-      <Group sx={{ flex: 1 }}>{stats}</Group>
-    </div>
-  );
-}
