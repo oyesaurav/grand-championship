@@ -1,11 +1,28 @@
 import "@/styles/globals.css"
-import Link from 'next/link'
+import Link from "next/link"
 import Head from "next/head"
 import React, { useEffect, useState, Fragment } from "react"
 import { MantineProvider, ColorSchemeProvider, Flex, AppShell, Header, Footer } from "@mantine/core"
-import { Navbar, Center, Tooltip, UnstyledButton, createStyles, Stack, useMantineColorScheme, ActionIcon, Group } from "@mantine/core"
 import {
-  IconSun, IconMoonStars, IconCricket,
+  Navbar,
+  Center,
+  Tooltip,
+  UnstyledButton,
+  createStyles,
+  Stack,
+  useMantineColorScheme,
+  ActionIcon,
+  Group,
+} from "@mantine/core"
+import {
+  IconSun,
+  IconMoonStars,
+  IconCricket,
+  IconBallFootball,
+  IconBallBasketball,
+  IconBallVolleyball,
+  IconKarate,
+  IconChessKing,
   TablerIcon,
   IconHome2,
   IconGauge,
@@ -56,13 +73,13 @@ function NavbarLink({ icon: Icon, label, active, onClick }) {
 }
 
 const mockdata = [
-  { icon: IconHome2, label: "Home", route: "/"},
-  { icon: IconCricket, label: "Cricket", route: "/cricket"},
-  { icon: IconDeviceDesktopAnalytics, label: "Analytics", route: "/cricket" },
-  { icon: IconCalendarStats, label: "Releases", route: "/cricket" },
-  { icon: IconUser, label: "Account", route: "/cricket" },
-  { icon: IconFingerprint, label: "Security", route: "/cricket" },
-  { icon: IconSettings, label: "Settings", route: "/cricket" },
+  { icon: IconHome2, label: "Home", route: "/" },
+  { icon: IconCricket, label: "Cricket", route: "/cricket" },
+  { icon: IconBallFootball, label: "Football", route: "/football" },
+  { icon: IconBallBasketball, label: "Basketball", route: "/basketball" },
+  { icon: IconBallVolleyball, label: "Volleyball", route: "/volleyball" },
+  { icon: IconKarate, label: "Kabaddi", route: "/kabaddi" },
+  { icon: IconChessKing, label: "Chess", route: "/chess" },
 ]
 
 export default function App({ Component, pageProps }) {
@@ -70,7 +87,9 @@ export default function App({ Component, pageProps }) {
   const [color, setColor] = useState("dark")
 
   const links = mockdata.map((link, index) => (
-    <Link href={link.route} ><NavbarLink {...link} key={link.label} active={index === active} onClick={() => setActive(index)} /></Link> 
+    <Link href={link.route}>
+      <NavbarLink {...link} key={link.label} active={index === active} onClick={() => setActive(index)} />
+    </Link>
   ))
 
   function changeColor() {
@@ -104,16 +123,17 @@ export default function App({ Component, pageProps }) {
                   {links}
                 </Stack>
                 <Group position="center" my="xl">
-                <ActionIcon
-                  onClick={() => changeColor()}
-                  size="lg"
-                  sx={(theme) => ({
-                    backgroundColor: theme.colorScheme === "dark" ? theme.colors.dark[6] : theme.colors.gray[0],
-                    color: theme.colorScheme === "dark" ? theme.colors.yellow[4] : theme.colors.blue[6],
-                  })}
-                >
-                  {color === "dark" ? <IconSun size={18} /> : <IconMoonStars size={18} />}
-                </ActionIcon></Group>
+                  <ActionIcon
+                    onClick={() => changeColor()}
+                    size="lg"
+                    sx={(theme) => ({
+                      backgroundColor: theme.colorScheme === "dark" ? theme.colors.dark[6] : theme.colors.gray[0],
+                      color: theme.colorScheme === "dark" ? theme.colors.yellow[4] : theme.colors.blue[6],
+                    })}
+                  >
+                    {color === "dark" ? <IconSun size={18} /> : <IconMoonStars size={18} />}
+                  </ActionIcon>
+                </Group>
               </Navbar.Section>
               <Navbar.Section>
                 <Stack justify="center" spacing={0}>
